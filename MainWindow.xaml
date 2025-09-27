@@ -6,11 +6,115 @@
         xmlns:local="clr-namespace:FirstWPFApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style x:Key="style1" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="Green"/>
+                <Setter Property="Foreground" Value="Blue"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="DarkGreen"/>
+                    <Setter Property="Foreground" Value="DarkBlue"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="style2" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="DarkCyan"/>
+                    <Setter Property="Foreground" Value="DarkGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="style3" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="Red"/>
+                <Setter Property="Foreground" Value="Yellow"/>
+                <Setter Property="IsEnabled" Value="False"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ElementName=text1, Path=Text}" Value=""/>
+                        <Condition Binding="{Binding ElementName=text2, Path=Text}" Value=""/>
+                    </MultiDataTrigger.Conditions>
+                    <MultiDataTrigger.Setters>
+                        <Setter Property="IsEnabled" Value="True"/>
+                    </MultiDataTrigger.Setters>
+                </MultiDataTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="DarkRed"/>
+                    <Setter Property="Foreground" Value="DarkOrange"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox" x:Key="stylebox">
+            <Style.Setters>
+                <Setter Property="TextBox.Background">
+                    <Setter.Value>
+                        <LinearGradientBrush>
+                            <GradientStop Color="Black" Offset="0"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="TextBox.Foreground" Value="Black"/>
+
+            </Style.Setters>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=combox, Path=SelectedIndex}" Value="0">
+                    <Setter Property="TextBox.Background" Value="White"/>
+                    <Setter Property="TextBox.Foreground" Value="Black"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=combox, Path=SelectedIndex}" Value="1">
+                    <Setter Property="TextBox.Background" Value="Black"/>
+                    <Setter Property="TextBox.Foreground" Value="LightGray"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=combox, Path=SelectedIndex}" Value="2">
+                    <Setter Property="TextBox.Background" Value="DarkBlue"/>
+                    <Setter Property="TextBox.Foreground" Value="Purple"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=combox, Path=SelectedIndex}" Value="3">
+                    <Setter Property="TextBox.Background">
+                        <Setter.Value>
+                            <LinearGradientBrush>
+                                <GradientStop Color="Black" Offset="0"/>
+                                <GradientStop Color="White" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <StackPanel>
-        <TextBox x:Name="t1" Text="{Binding ElementName=t2, Path=Text}" FontSize="{Binding ElementName=fontsize, Path=Text}" />
-        <TextBox x:Name="t2" Text="{Binding ElementName=t1, Path=Text}" FontSize="{Binding ElementName=fontsize, Path=Text}"/>
-        <Slider x:Name="slider1" Maximum="99" Minimum="1" Value="{Binding ElementName=fontsize, Path=Text}"/>
-        <Slider x:Name="slider2" Maximum="99" Minimum="1" Value="{Binding ElementName=slider1, Path=Value}" />
-        <TextBox x:Name="fontsize" Text="{Binding ElementName=slider1, Path=Value}" MaxLength="2" />
+        <Button x:Name="button1" Style="{StaticResource style1}" Content="Открыть"/>
+        <Button x:Name="button2" Style="{StaticResource style2}" Content="Очистить"/>
+        <Button x:Name="button3" Style="{StaticResource style3}" Content="Закрыть"/>
+        <TextBox x:Name="text1" Style="{StaticResource stylebox}"/>
+        <TextBox x:Name="text2" Style="{StaticResource stylebox}"/>
+        <ComboBox x:Name="combox" SelectedIndex="3">
+            <ComboBoxItem Content="Default"/>
+            <ComboBoxItem Content="Dark"/>
+            <ComboBoxItem Content="Galaxy"/>
+            <ComboBoxItem Content="Gradient"/>
+        </ComboBox>
     </StackPanel>
 </Window>
